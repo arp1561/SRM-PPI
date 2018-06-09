@@ -1,0 +1,23 @@
+import pandas as pd
+
+data_seed=pd.read_csv("noschizoseed.txt",delim_whitespace="",header=None)
+seed_genes=data_seed[0]
+
+path="with_seed"
+txt_file=open("no_of_seed_genes.txt",'w')
+sum_count=0
+for gene in seed_genes:
+	count=0
+	for i in range(0,100):
+		path_to_look=path+str(i)
+		data_random=pd.read_csv(path_to_look,delim_whitespace="",header=None)
+		random_seed_list=data_random[0]
+		for j in range(len(random_seed_list)):
+			if gene==random_seed_list[j]:
+				count=count+1
+	txt_file.write(str(gene)+","+str(count)+"\n")
+	sum_count=sum_count+count
+
+print sum_count
+
+txt_file.close()
